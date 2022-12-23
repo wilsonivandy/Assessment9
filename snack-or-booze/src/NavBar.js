@@ -3,6 +3,8 @@ import "./NavBar.css";
 import { NavLink } from "react-router-dom";
 import { Navbar, Nav, NavItem } from "reactstrap";
 
+// Navigation bar 
+
 function NavBar() {
   return (
     <div>
@@ -14,6 +16,12 @@ function NavBar() {
         <Nav className="ml-auto" navbar>
           <NavItem>
             <NavLink to="/snacks">Snacks</NavLink>
+          </NavItem>
+          <NavItem>
+            <NavLink to="/drinks">Drinks</NavLink>
+          </NavItem>
+          <NavItem>
+            <NavLink to="/add">Add Item!</NavLink>
           </NavItem>
         </Nav>
       </Navbar>

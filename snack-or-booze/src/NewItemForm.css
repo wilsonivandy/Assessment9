@@ -1,0 +1,23 @@
+.form-master {
+    display: flex;
+    flex-direction: column;
+    align-items: left;
+}
+
+.inputSlot {
+    float: right;
+}
+
+.form-fields {
+    margin: 5px;
+}
+
+.form-label {
+    margin-right: 10px;
+}
+
+.italics {
+    font-style: italic;
+    text-align: center;
+    font-size: small
+}

@@ -5,12 +5,19 @@ import Home from "./Home";
 import SnackOrBoozeApi from "./Api";
 import NavBar from "./NavBar";
 import { Route, Switch } from "react-router-dom";
-import Menu from "./FoodMenu";
-import Snack from "./FoodItem";
+import Menu from "./Menu";
+import DrinkMenu from "."
+import MenuItem from "./MenuItem";
+import NewItemForm from './NewItemForm'
+import { v4 as uuid } from 'uuid';
+import PageError from './PageError'
 
 function App() {
   const [isLoading, setIsLoading] = useState(true);
   const [snacks, setSnacks] = useState([]);
+  const [drinks, setDrinks] = useState([]);
+
+  // When snacks or drinks are updated to, then re-render and recalculate how many snacks/drinks to render in home. 
 
   useEffect(() => {
     async function getSnacks() {
@@ -18,8 +25,23 @@ function App() {
       setSnacks(snacks);
       setIsLoading(false);
     }
+    async function getDrinks() {
+      let drinks = await SnackOrBoozeApi.getDrinks();
+      setDrinks(drinks);
+      setIsLoading(false);
+    }
     getSnacks();
+    getDrinks();
   }, []);
+
+  function addItem(item, type) {
+    let newItem = { ...item, id: uuid() };
+    if (type == "Drinks") {
+      setDrinks(drinks => [...drinks, newItem]);
+    } else {
+      setSnacks(snacks => [...snacks, newItem]);
+    }
+  }
 
   if (isLoading) {
     return <p>Loading &hellip;</p>;
@@ -32,16 +54,25 @@ function App() {
         <main>
           <Switch>
             <Route exact path="/">
-              <Home snacks={snacks} />
+              <Home snacks={snacks} drinks={drinks} title="Snacks" />
+            </Route>
+            <Route path="/add">
+              <NewItemForm addItem={addItem}/>
             </Route>
             <Route exact path="/snacks">
-              <Menu snacks={snacks} title="Snacks" />
+              <Menu items={snacks} title="Snacks" />
+            </Route>
+            <Route exact path="/drinks">
+              <Menu items={drinks} title="Drinks" />
             </Route>
             <Route path="/snacks/:id">
-              <Snack items={snacks} cantFind="/snacks" />
+              <MenuItem items={snacks} cantFind="/snacks" />
+            </Route>
+            <Route path="/drinks/:id">
+              <MenuItem items={drinks} cantFind="/drinks" />
             </Route>
             <Route>
-              <p>Hmmm. I can't seem to find what you want.</p>
+              <PageError/>
             </Route>
           </Switch>
         </main>
