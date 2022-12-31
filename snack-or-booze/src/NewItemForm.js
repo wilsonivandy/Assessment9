@@ -29,8 +29,8 @@ const NewItemForm = ({ addItem }) => {
 
   const handleSubmit = evt => {
     evt.preventDefault();
-    addItem(formData);
-    alert("Submitted!");
+    addItem(formData, type.type);
+    alert(`Submitted!`);
     setFormData(INITIAL_STATE);
     setType(INITIAL_TYPE);
   };

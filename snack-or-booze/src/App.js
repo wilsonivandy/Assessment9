@@ -36,7 +36,7 @@ function App() {
 
   function addItem(item, type) {
     let newItem = { ...item, id: uuid() };
-    if (type == "Drinks") {
+    if (type == "Drink") {
       setDrinks(drinks => [...drinks, newItem]);
     } else {
       setSnacks(snacks => [...snacks, newItem]);
