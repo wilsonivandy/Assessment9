@@ -19,7 +19,29 @@ class SnackOrBoozeApi {
   static async getDrinks() {
     const result = await axios.get(`${BASE_API_URL}/drinks`);
     return result.data;
-  }
+  }  
+
+  static async addDrink(data) {
+    const result = await axios.post(`${BASE_API_URL}/drinks`, {
+      id: data.id,
+      name: data.name,
+      description: data.description,
+      recipe: data.recipe,
+      serve: data.serve
+    });
+    return result.data;
+  }  
+
+  static async addSnack(data) {
+    const result = await axios.post(`${BASE_API_URL}/snacks`, {
+      id: data.id,
+      name: data.name,
+      description: data.description,
+      recipe: data.recipe,
+      serve: data.serve
+    });
+    return result.data;
+  }  
 
 }
 

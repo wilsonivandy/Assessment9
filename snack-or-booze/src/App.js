@@ -34,11 +34,13 @@ function App() {
     getDrinks();
   }, []);
 
-  function addItem(item, type) {
+  async function addItem(item, type) {
     let newItem = { ...item, id: uuid() };
     if (type == "Drink") {
+      await SnackOrBoozeApi.addDrink(newItem);
       setDrinks(drinks => [...drinks, newItem]);
     } else {
+      await SnackOrBoozeApi.addSnack(newItem);
       setSnacks(snacks => [...snacks, newItem]);
     }
   }
